@@ -1,2 +1,5 @@
 bitcoinx
-request
+requests
+pylint
+flake8
+pytest

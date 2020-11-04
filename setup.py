@@ -19,6 +19,6 @@ setup(name='handcash_connect_sdk',
       license='The Unlicense',
       packages=find_packages(exclude=("tests",)),
       install_requires=[
-          'bitcoinx', 'request'
+          'bitcoinx', 'requests'
       ],
       zip_safe=True)
