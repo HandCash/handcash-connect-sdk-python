@@ -25,14 +25,14 @@ class HttpRequestFactory:
         timestamp = self._isoformat_js(datetime.now())
         private_key = PrivateKey.from_hex(self._auth_token)
         public_key = private_key.public_key #  PublicKey(private_key._secp256k1_public_key(), True)
-        body = json.dumps(body, separators=(',', ':'))
 
         return (
+            method,
             f"{self._base_api_endpoint}{endpoint}",
             body,
             {
                 'oauth-publickey': public_key.to_hex(),
-                'oauth-signature': self._get_request_signature(method, endpoint, body, timestamp, private_key),
+                'oauth-signature': self._get_request_signature(method, endpoint, json.dumps(body, separators=(',', ':')), timestamp, private_key),
                 'oauth-timestamp': timestamp
             }  # headers
         )
@@ -47,7 +47,7 @@ class HttpRequestFactory:
         return self._get_signed_request(
             'GET',
             f"{HttpRequestFactory.PROFILE_ENDPOINT}/publicUserProfiles",
-            { "aliases": aliases }
+            { 'aliases': aliases }
         )
 
     def get_user_friends_request(self):

@@ -3,3 +3,4 @@ requests
 pylint
 flake8
 pytest
+attr

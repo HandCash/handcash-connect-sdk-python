@@ -1,1 +1,3 @@
 from .http_request_factory import HttpRequestFactory
+from .handcash_connect_service import HandCashConnectService
+from .handcash_connect_api_error import HandCashConnectApiError
