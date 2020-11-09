@@ -1,7 +1,7 @@
 import json
-from bitcoinx.keys import PrivateKey, PublicKey
+from bitcoinx.keys import PrivateKey
 from datetime import datetime, timezone
-import logging
+
 
 class HttpRequestFactory:
     PROFILE_ENDPOINT = '/v1/connect/profile'
@@ -18,7 +18,6 @@ class HttpRequestFactory:
     @staticmethod
     def _get_request_signature(method: str, endpoint: str, body: str, timestamp: datetime, private_key: PrivateKey):
         signature_hash = f"{method}\n{endpoint}\n{timestamp}\n{body}"
-        logging.error(signature_hash)
         return private_key.sign(bytes(signature_hash, 'utf-8')).hex()
 
     def _get_signed_request(self, method, endpoint, body={}):

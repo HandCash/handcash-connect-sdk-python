@@ -36,9 +36,13 @@ class HandCashConnectService:
     @staticmethod
     def _handle_http_request(method: str, url: str, body: dict, headers: dict):
         try:
+            logging.debug(f"{method} request to {url}. Body: {body}, headers: {headers}")
+
             response = requests.request(method, url, json=body, headers=headers)
             response.raise_for_status()
-            logging.error(response.json())
+
+            logging.debug(f"Response: {response.json()}")
+
             return response.json()
         except RequestException as exc:
             reason = exc.response.reason

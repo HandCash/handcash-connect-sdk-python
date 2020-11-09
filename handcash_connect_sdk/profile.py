@@ -1,4 +1,3 @@
-import logging
 from typing import List
 from attr import attrs, attrib
 from bitcoinx import PrivateKey, PublicKey
@@ -57,7 +56,6 @@ class Profile:
 
     def get_encryption_keypair(self):
         private_key = PrivateKey.from_hex("50e83102c35df17e0914168c92f383a71e52ac8a8df5eefaee29bab36bc2fb09") #PrivateKey.from_random()
-        logging.error(private_key.to_hex())
         public_key = PublicKey(private_key._secp256k1_public_key(), False)
         encryption_keypair = self._handcash_connect_service.get_encryption_keypair(public_key.to_hex())
         return EncryptionKeypair(

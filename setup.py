@@ -17,7 +17,7 @@ setup(name='handcash_connect_sdk',
       author='Krzysztof Fonal',
       author_email='krzysiekfonal@gmail.com',
       license='The Unlicense',
-      packages=find_packages(exclude=("tests",)),
+      packages=find_packages(exclude=["*.tests", "*.tests.*", "tests.*", "tests"]),
       install_requires=[
           'bitcoinx', 'requests', 'attr'
       ],
