@@ -15,7 +15,7 @@ setup(name='handcash_connect_sdk',
       keywords='api handcash',
       url='https://github.com/krzysiekfonal/handcash-connect-sdk-python',
       author='Krzysztof Fonal',
-      author_email='krzysiek.fonal@gmail.com',
+      author_email='krzysiekfonal@gmail.com',
       license='The Unlicense',
       packages=find_packages(exclude=("tests",)),
       install_requires=[

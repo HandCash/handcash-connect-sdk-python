@@ -1,3 +1,4 @@
+import os
 import pytest
 from handcash_connect_sdk.profile import Profile, UserProfile
 from handcash_connect_sdk.api import HttpRequestFactory, HandCashConnectService
@@ -5,7 +6,7 @@ from handcash_connect_sdk.api import HttpRequestFactory, HandCashConnectService
 
 @pytest.fixture(name='profile')
 def profile_fixture():
-    auth_token = "3243a7caf0703b50f18b5dbd580f2fcc4cf489d608f9802cb917517e1c94a5e0"
+    auth_token = os.environ["HC_AUTH_TOKEN"]
     base_api_endpoints = "https://beta-cloud.handcash.io"
     http_request_factory = HttpRequestFactory(auth_token, base_api_endpoints)
     handcash_connect_service = HandCashConnectService(http_request_factory)
