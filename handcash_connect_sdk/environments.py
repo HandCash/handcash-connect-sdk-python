@@ -15,3 +15,8 @@ IAE: Final[Environment] = Environment(
     api_endpoint="https://iae.cloud.handcash.io",
     client_url="https://handcash-web.firebaseapp.com",
 )
+
+PROD: Final[Environment] = Environment(
+    api_endpoint="https://cloud.handcash.io",
+    client_url="https://app.handcash.io",
+)
