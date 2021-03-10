@@ -40,7 +40,7 @@ class Profile:
     def __init__(self, handcash_connect_service: HandCashConnectService):
         self._handcash_connect_service = handcash_connect_service
 
-    def get_current_profilie(self) -> UserProfile:
+    def get_current_profile(self) -> UserProfile:
         return UserProfile(**self._handcash_connect_service.get_current_profile())
 
     def get_public_profiles_by_handle(self, handles) -> List[UserPublicProfile]:
@@ -54,9 +54,9 @@ class Profile:
     def get_permissions(self) -> List[str]:
         return self._handcash_connect_service.get_user_permissions()["items"]
 
-    def get_encryption_keypair(self):
-        private_key = PrivateKey.from_hex("50e83102c35df17e0914168c92f383a71e52ac8a8df5eefaee29bab36bc2fb09") #PrivateKey.from_random()
-        public_key = PublicKey(private_key._secp256k1_public_key(), False)
+    def get_encryption_keypair(self) -> EncryptionKeypair:
+        private_key = PrivateKey.from_random()
+        public_key = private_key.public_key
         encryption_keypair = self._handcash_connect_service.get_encryption_keypair(public_key.to_hex())
         return EncryptionKeypair(
             privateKey=private_key.decrypt_message(

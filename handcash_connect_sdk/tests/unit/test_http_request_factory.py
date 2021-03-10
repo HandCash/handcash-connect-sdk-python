@@ -1,13 +1,14 @@
 import pytest
-import json
 from freezegun import freeze_time
+
+from handcash_connect_sdk import environments
 from handcash_connect_sdk.api import HttpRequestFactory
 
 
 @pytest.fixture(name='http_request_factory')
 def http_request_factory_fixture():
     auth_token = "2343a7caf0703b50f18b5dbd580f2fcc4cf489d608f9802cb917517e1c94a5e1"
-    base_api_endpoints = "https://beta-cloud.handcash.io"
+    base_api_endpoints = environments.PROD.api_endpoint
     http_request_factory = HttpRequestFactory(auth_token, base_api_endpoints)
 
     return http_request_factory
@@ -17,7 +18,7 @@ def http_request_factory_fixture():
 def test_get_current_profile_request(http_request_factory: HttpRequestFactory):
     expected_method, expected_url, expected_body, expected_headers = (
         'GET',
-        "https://beta-cloud.handcash.io/v1/connect/profile/currentUserProfile",
+        "https://cloud.handcash.io/v1/connect/profile/currentUserProfile",
         {},
         {
             "oauth-publickey": "033827aad966472d44dc230ec3163c78adf4a030fa03de729af50a62ca6c418109",
@@ -38,11 +39,11 @@ def test_get_public_profiles_by_handle_request(http_request_factory: HttpRequest
     aliases = ["testuser1"]
     expected_method, expected_url, expected_body, expected_headers = (
         'GET',
-        "https://beta-cloud.handcash.io/v1/connect/profile/publicUserProfiles",
+        "https://cloud.handcash.io/v1/connect/profile/publicUserProfiles",
         {"aliases": aliases},
         {
             "oauth-publickey": "033827aad966472d44dc230ec3163c78adf4a030fa03de729af50a62ca6c418109",
-            "oauth-signature": "304502210080f6bac88a96bbb4db7fb0272e665655752b18c1080efa9acfa7752c005231ac02202ddfe430a5b63166f04316236356d1cc9f4a7b2d8804f2e6fd748e50d4d1e5d0",
+            "oauth-signature": "304502210095a29dce87c06be7992299f7c67324bf4c1dc6fbb8bd8172f710f9b92b1e91010220478f1cfb834b770b479659c61d875717d9833bddef6f6a6acdeba6f74597e546",
             "oauth-timestamp": "2020-12-01T12:00:00.000Z"
         })
 
@@ -58,7 +59,7 @@ def test_get_public_profiles_by_handle_request(http_request_factory: HttpRequest
 def test_get_user_friends_request(http_request_factory: HttpRequestFactory):
     expected_method, expected_url, expected_body, expected_headers = (
         'GET',
-        "https://beta-cloud.handcash.io/v1/connect/profile/friends",
+        "https://cloud.handcash.io/v1/connect/profile/friends",
         {},
         {
             "oauth-publickey": "033827aad966472d44dc230ec3163c78adf4a030fa03de729af50a62ca6c418109",
@@ -78,7 +79,7 @@ def test_get_user_friends_request(http_request_factory: HttpRequestFactory):
 def test_get_user_permissions_request(http_request_factory: HttpRequestFactory):
     expected_method, expected_url, expected_body, expected_headers = (
         'GET',
-        "https://beta-cloud.handcash.io/v1/connect/profile/permissions",
+        "https://cloud.handcash.io/v1/connect/profile/permissions",
         {},
         {
             "oauth-publickey": "033827aad966472d44dc230ec3163c78adf4a030fa03de729af50a62ca6c418109",
@@ -94,17 +95,16 @@ def test_get_user_permissions_request(http_request_factory: HttpRequestFactory):
     assert expected_headers == headers
 
 
-
 @freeze_time('2020-12-01T12:00:00.000Z', 1)
 def test_get_encryption_keypair_request(http_request_factory: HttpRequestFactory):
     encryption_public_key = "123827aad966472d44dc230ec3163c78adf4a030fa03de729af50a62ca6c418108"
     expected_method, expected_url, expected_body, expected_headers = (
         'GET',
-        "https://beta-cloud.handcash.io/v1/connect/profile/encryptionKeypair",
+        "https://cloud.handcash.io/v1/connect/profile/encryptionKeypair",
         {"encryptionPublicKey": encryption_public_key},
         {
             "oauth-publickey": "033827aad966472d44dc230ec3163c78adf4a030fa03de729af50a62ca6c418109",
-            "oauth-signature": "304402207e42d5887a0be636905bf30280e74164fd4f7b9eb1284aed13ee8551fd978135022073cb1cc157b03039a7f0c3190b999924b05159b2597e3ccc6f1701cab1e4a68d",
+            "oauth-signature": "3045022100a2ac1fe44dfc0cfef52bd62461f1200619c47af92bb6347983eea71c460f37a20220610ad5a68d7f17e4d55301a836b1b97ca217969f2c12e79ee6901b3ce9fe7e3f",
             "oauth-timestamp": "2020-12-01T12:00:00.000Z"
         })
 
@@ -121,11 +121,11 @@ def test_get_spendable_balance_request(http_request_factory: HttpRequestFactory)
     currency_code = "USD"
     expected_method, expected_url, expected_body, expected_headers = (
         'GET',
-        "https://beta-cloud.handcash.io/v1/connect/profile/spendableBalance",
+        "https://cloud.handcash.io/v1/connect/profile/spendableBalance",
         {"currencyCode": currency_code},
         {
             "oauth-publickey": "033827aad966472d44dc230ec3163c78adf4a030fa03de729af50a62ca6c418109",
-            "oauth-signature": "3045022100b5444df336acc2e632b2d7f0ac479a398122d76b4411ee6b41e392f25ad5b72f0220255792d33a2c17f9a086fe577487718fc8de03bb991c07a6933f7447786febb9",
+            "oauth-signature": "3045022100abc68b0b3d995fc22fa1ad62a61df314341aa5a99431e82df52565d6be78d4f8022059092d38709fac93a15cbb07e289354d94ddba4f6800e0ddcda9f4a40a2fc1b9",
             "oauth-timestamp": "2020-12-01T12:00:00.000Z"
         })
 
