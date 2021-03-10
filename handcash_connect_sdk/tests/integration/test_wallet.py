@@ -2,7 +2,7 @@ import os
 import unittest
 
 from handcash_connect_sdk import environments, HandcashCloudAccount
-from handcash_connect_sdk.entities.payment_parameters import PaymentParameters, PayTo, Attachment
+from handcash_connect_sdk import PaymentParameters, PayTo, Attachment
 
 
 class TestWallet(unittest.TestCase):
