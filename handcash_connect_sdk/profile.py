@@ -1,39 +1,10 @@
 from typing import List
-from attr import attrs, attrib
-from bitcoinx import PrivateKey, PublicKey
+
+from bitcoinx import PrivateKey
+
 from .api import HandCashConnectService
-
-
-@attrs
-class UserPublicProfile:
-    id: str = attrib()
-    handle: str = attrib(default="")
-    displayName: str = attrib(default="")
-    avatarUrl: str = attrib(default="")
-    localCurrencyCode: str = attrib(default="")
-    paymail: str = attrib(default="")
-
-
-@attrs
-class UserPrivateProfile:
-    email: str = attrib()
-    phoneNumber: str = attrib(default="")
-
-
-@attrs
-class UserProfile:
-    publicProfile: UserPublicProfile = attrib(
-        converter=lambda self: UserPublicProfile(**self),
-    )
-    privateProfile: UserPrivateProfile = attrib(
-        converter=lambda self: UserPrivateProfile(**self),
-    )
-
-
-@attrs
-class EncryptionKeypair:
-    privateKey: str = attrib()
-    publicKey: str = attrib()
+from .entities.encryption_keypair import EncryptionKeypair
+from .entities.user_profile import UserProfile, UserPublicProfile
 
 
 class Profile:

@@ -1,6 +1,10 @@
 import json
-from bitcoinx.keys import PrivateKey
 from datetime import datetime, timezone
+from urllib.parse import urlencode
+
+from bitcoinx.keys import PrivateKey
+
+from handcash_connect_sdk.entities.payment_parameters import PaymentParameters
 
 
 class HttpRequestFactory:
@@ -20,12 +24,14 @@ class HttpRequestFactory:
         signature_hash = f"{method}\n{endpoint}\n{timestamp}\n{body}"
         return private_key.sign(bytes(signature_hash, 'utf-8')).hex()
 
-    def _get_signed_request(self, method, endpoint, body=None):
+    def _get_signed_request(self, method, endpoint, body=None, query_parameters=None):
         if body is None:
             body = {}
         timestamp = self._isoformat_js(datetime.now())
         private_key = PrivateKey.from_hex(self._auth_token)
         public_key = private_key.public_key
+
+        endpoint = f"{endpoint}{'' if query_parameters is None else '?' + urlencode(query_parameters)}"
 
         return (
             method,
@@ -52,7 +58,7 @@ class HttpRequestFactory:
         return self._get_signed_request(
             'GET',
             f"{HttpRequestFactory.PROFILE_ENDPOINT}/publicUserProfiles",
-            {'aliases': aliases}
+            body={'aliases': aliases}
         )
 
     def get_user_friends_request(self):
@@ -71,12 +77,33 @@ class HttpRequestFactory:
         return self._get_signed_request(
             'GET',
             f"{HttpRequestFactory.PROFILE_ENDPOINT}/encryptionKeypair",
-            {"encryptionPublicKey": encryption_public_key}
+            body={"encryptionPublicKey": encryption_public_key}
         )
 
     def get_spendable_balance_request(self, currency_code: str):
         return self._get_signed_request(
             'GET',
             f"{HttpRequestFactory.PROFILE_ENDPOINT}/spendableBalance",
-            {"currencyCode": currency_code}
+            body={"currencyCode": currency_code}
+        )
+
+    def get_pay_request(self, payment_parameters: PaymentParameters):
+        return self._get_signed_request(
+            'POST',
+            f"{HttpRequestFactory.WALLET_ENDPOINT}/pay",
+            body={
+                "description": payment_parameters.description,
+                "appAction": payment_parameters.appAction,
+                "receivers": [item.__dict__ for item in payment_parameters.receivers],
+                "attachment": payment_parameters.attachment.__dict__,
+            },
+        )
+
+    def get_payment_request(self, transaction_id: str):
+        return self._get_signed_request(
+            'GET',
+            f"{HttpRequestFactory.WALLET_ENDPOINT}/payment",
+            body={
+                "transactionId": transaction_id,
+            },
         )
