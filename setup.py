@@ -1,12 +1,12 @@
 from setuptools import setup, find_packages
 
 setup(name='handcash_connect_sdk',
-      version='0.1.2',
+      version='0.2.0',
       description='handcash_connect_sdk - library for interacting with Handcash Connect API',
       long_description='This library allows you to authorize with Handcash Cloud server and use Handcash Connect API '
                        'in order to get user\'s info and do payments on behalf of user\'s wallet.',
       classifiers=[
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 4 - Beta',
         'License :: OSI Approved :: The Unlicense (Unlicense)',
         'Programming Language :: Python :: 3.8',
         'Topic :: Software Development :: Libraries :: Python Modules',
