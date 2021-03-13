@@ -8,12 +8,12 @@ class Environment(NamedTuple):
 
 BETA: Final[Environment] = Environment(
     api_endpoint="https://beta-cloud.handcash.io",
-    client_url="https://handcash-web-beta.firebaseapp.com",
+    client_url="https://beta-app.handcash.io",
 )
 
 IAE: Final[Environment] = Environment(
     api_endpoint="https://iae.cloud.handcash.io",
-    client_url="https://handcash-web.firebaseapp.com",
+    client_url="https://iae-app.handcash.io",
 )
 
 PROD: Final[Environment] = Environment(

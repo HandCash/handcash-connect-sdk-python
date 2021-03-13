@@ -1,8 +1,9 @@
 import requests
-import logging
 from requests.exceptions import RequestException
-from .http_request_factory import HttpRequestFactory
+
 from .handcash_connect_api_error import HandCashConnectApiError
+from .http_request_factory import HttpRequestFactory
+from ..entities.payment_parameters import PaymentParameters
 
 
 class HandCashConnectService:
@@ -33,15 +34,19 @@ class HandCashConnectService:
         return self._handle_http_request(
             *self._http_request_factory.get_spendable_balance_request(currency_code))
 
+    def pay(self, payment_parameters: PaymentParameters):
+        return self._handle_http_request(
+            *self._http_request_factory.get_pay_request(payment_parameters))
+
+    def get_payment(self, transaction_id: str):
+        return self._handle_http_request(
+            *self._http_request_factory.get_payment_request(transaction_id))
+
     @staticmethod
     def _handle_http_request(method: str, url: str, body: dict, headers: dict):
         try:
-            logging.debug(f"{method} request to {url}. Body: {body}, headers: {headers}")
-
             response = requests.request(method, url, json=body, headers=headers)
             response.raise_for_status()
-
-            logging.debug(f"Response: {response.json()}")
 
             return response.json()
         except RequestException as exc:
