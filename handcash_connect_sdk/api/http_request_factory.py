@@ -88,15 +88,19 @@ class HttpRequestFactory:
         )
 
     def get_pay_request(self, payment_parameters: PaymentParameters):
+        body = {
+            "description": payment_parameters.description,
+            "receivers": [item.__dict__ for item in payment_parameters.receivers],
+        }
+        if payment_parameters.attachment is not None:
+            body['attachment'] = payment_parameters.attachment.__dict__
+        if payment_parameters.appAction is not None:
+            body['appAction'] = payment_parameters.appAction
+
         return self._get_signed_request(
             'POST',
             f"{HttpRequestFactory.WALLET_ENDPOINT}/pay",
-            body={
-                "description": payment_parameters.description,
-                "appAction": payment_parameters.appAction,
-                "receivers": [item.__dict__ for item in payment_parameters.receivers],
-                "attachment": payment_parameters.attachment.__dict__,
-            },
+            body=body,
         )
 
     def get_payment_request(self, transaction_id: str):

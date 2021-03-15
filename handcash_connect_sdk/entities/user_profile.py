@@ -3,7 +3,7 @@ from attr import attrs, attrib
 
 @attrs(slots=True)
 class UserPrivateProfile:
-    email: str = attrib()
+    email: str = attrib(default="")
     phoneNumber: str = attrib(default="")
 
 
