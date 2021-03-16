@@ -49,3 +49,7 @@ class TestWallet(unittest.TestCase):
         transaction_id = '5b4bf89642b42f479f2dfd6f13e3b33cfb854f9581d3275614c79ba291da3ceb'
         payment_result = self.wallet.get_payment(transaction_id)
         assert payment_result is not None
+
+    def test_get_spendable_balance(self):
+        spendable_balance = self.wallet.get_spendable_balance(currency_code='EUR')
+        assert spendable_balance is not None

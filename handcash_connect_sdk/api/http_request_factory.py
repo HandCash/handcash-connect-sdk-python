@@ -81,10 +81,13 @@ class HttpRequestFactory:
         )
 
     def get_spendable_balance_request(self, currency_code: str):
+        body = {}
+        if currency_code:
+            body['currencyCode'] = currency_code
         return self._get_signed_request(
             'GET',
-            f"{HttpRequestFactory.PROFILE_ENDPOINT}/spendableBalance",
-            body={"currencyCode": currency_code}
+            f"{HttpRequestFactory.WALLET_ENDPOINT}/spendableBalance",
+            body=body
         )
 
     def get_pay_request(self, payment_parameters: PaymentParameters):
