@@ -12,6 +12,7 @@ class PaymentParticipant:
     displayName: str = attrib()
     profilePictureUrl: str = attrib()
     responseNote: str = attrib()
+    amount: float = attrib()
 
 
 @attrs(slots=True)
