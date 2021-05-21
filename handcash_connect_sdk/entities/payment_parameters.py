@@ -19,6 +19,6 @@ class Attachment:
 @attrs(slots=True)
 class PaymentParameters:
     description: str = attrib()
-    appAction: str = attrib()
-    attachment: Attachment = attrib()
+    appAction: str = attrib(default=None)
+    attachment: Attachment = attrib(default=None)
     receivers: List[PayTo] = attrib(factory=list)

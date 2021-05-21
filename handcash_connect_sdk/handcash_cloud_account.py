@@ -1,3 +1,4 @@
+from . import environments
 from .api import HandCashConnectService, HttpRequestFactory
 from .environments import Environment
 from .profile import Profile
@@ -10,7 +11,7 @@ class HandcashCloudAccount:
         self.wallet = wallet
 
     @staticmethod
-    def from_auth_token(auth_token: str, environment: Environment):
+    def from_auth_token(auth_token: str, environment: Environment = environments.PROD):
         handcash_connect_service = HandCashConnectService(HttpRequestFactory(auth_token, environment.api_endpoint))
 
         return HandcashCloudAccount(Profile(handcash_connect_service), Wallet(handcash_connect_service))
