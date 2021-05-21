@@ -15,6 +15,7 @@ class UserPublicProfile:
     avatarUrl: str = attrib(default="")
     paymail: str = attrib(default="")
     localCurrencyCode: str = attrib(default="")
+    bitcoinUnit: str = attrib(default="")
 
 
 @attrs(slots=True)
