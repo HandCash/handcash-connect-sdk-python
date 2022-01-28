@@ -27,7 +27,8 @@ class TestProfile(unittest.TestCase):
 
     def test_get_permissions(self):
         permissions = self.profile.get_permissions()
-        expected = sorted(['PAY', 'USER_PRIVATE_PROFILE', 'DECRYPT', 'FRIENDS', 'USER_PUBLIC_PROFILE'])
+        expected = sorted(
+            ['SIGN_DATA', 'DECRYPT', 'PAY', 'USER_PRIVATE_PROFILE', 'FRIENDS', 'USER_PUBLIC_PROFILE'])
         self.assertListEqual(expected, sorted(permissions))
 
     def test_get_encryption_keypair(self):

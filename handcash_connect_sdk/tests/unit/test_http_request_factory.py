@@ -121,11 +121,11 @@ def test_get_spendable_balance_request(http_request_factory: HttpRequestFactory)
     currency_code = "USD"
     expected_method, expected_url, expected_body, expected_headers = (
         'GET',
-        "https://cloud.handcash.io/v1/connect/profile/spendableBalance",
+        "https://cloud.handcash.io/v1/connect/wallet/spendableBalance",
         {"currencyCode": currency_code},
         {
             "oauth-publickey": "033827aad966472d44dc230ec3163c78adf4a030fa03de729af50a62ca6c418109",
-            "oauth-signature": "3045022100abc68b0b3d995fc22fa1ad62a61df314341aa5a99431e82df52565d6be78d4f8022059092d38709fac93a15cbb07e289354d94ddba4f6800e0ddcda9f4a40a2fc1b9",
+            "oauth-signature": "30450221008eff3d8c443ef74705516878c2eb78e398ed76407637381a37e5b611446f9a8502200462c80b0efeff64322c9a4388969cdac7b804fb17fd1b14410965f463dfdef6",
             "oauth-timestamp": "2020-12-01T12:00:00.000Z"
         })
 
