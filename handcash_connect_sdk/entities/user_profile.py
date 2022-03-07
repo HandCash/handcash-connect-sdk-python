@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from attr import attrs, attrib
 
 
@@ -10,6 +12,7 @@ class UserPrivateProfile:
 @attrs(slots=True)
 class UserPublicProfile:
     id: str = attrib()
+    createdAt: datetime = attrib()
     handle: str = attrib(default="")
     displayName: str = attrib(default="")
     avatarUrl: str = attrib(default="")
