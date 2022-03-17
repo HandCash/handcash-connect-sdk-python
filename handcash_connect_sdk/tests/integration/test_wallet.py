@@ -10,7 +10,8 @@ class TestWallet(unittest.TestCase):
 
     def setUp(self):
         auth_token = os.environ["HC_AUTH_TOKEN"]
-        handcash_cloud_account = HandcashCloudAccount.from_auth_token(auth_token, environments.PROD)
+        app_secret = os.environ["HC_APP_SECRET"]
+        handcash_cloud_account = HandcashCloudAccount.from_auth_token(auth_token, app_secret, environments.PROD)
         self.wallet = handcash_cloud_account.wallet
 
     def test_pay(self):

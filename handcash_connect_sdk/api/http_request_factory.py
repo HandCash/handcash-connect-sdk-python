@@ -11,8 +11,9 @@ class HttpRequestFactory:
     PROFILE_ENDPOINT = '/v1/connect/profile'
     WALLET_ENDPOINT = '/v1/connect/wallet'
 
-    def __init__(self, auth_token: str, base_api_endpoint: str):
+    def __init__(self, auth_token: str, app_secret: str, base_api_endpoint: str):
         self._auth_token = auth_token
+        self._app_secret = app_secret
         self._base_api_endpoint = base_api_endpoint
 
     @staticmethod
@@ -44,7 +45,8 @@ class HttpRequestFactory:
                                                                json.dumps(body),
                                                                timestamp,
                                                                private_key),
-                'oauth-timestamp': timestamp
+                'oauth-timestamp': timestamp,
+                'app-secret': self._app_secret,
             }
         )
 
