@@ -8,6 +8,7 @@ class PayTo:
     sendAmount: float = attrib()
     currencyCode: str = attrib()
     destination: str = attrib()
+    tags: List[str] = []
 
 
 @attrs(slots=False)

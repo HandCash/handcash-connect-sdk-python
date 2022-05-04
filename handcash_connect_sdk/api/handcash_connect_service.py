@@ -53,10 +53,12 @@ class HandCashConnectService:
             response = exc.response.json()
             raise HandCashConnectApiError(exc.response.status_code, message=response['message'], info=response['info'])
         except RequestException as exc:
-            reason = exc.response.reason
-            if isinstance(reason, bytes):
-                try:
-                    reason = reason.decode('utf-8')
-                except UnicodeDecodeError:
-                    reason = reason.decode('iso-8859-1')
+            reason = ''
+            if reason is not None:
+                reason = exc.response.reason
+                if isinstance(reason, bytes):
+                    try:
+                        reason = reason.decode('utf-8')
+                    except UnicodeDecodeError:
+                        reason = reason.decode('iso-8859-1')
             raise HandCashConnectApiError(exc.response.status_code, message=reason)
